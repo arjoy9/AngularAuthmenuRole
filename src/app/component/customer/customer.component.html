@@ -1,0 +1,58 @@
+<mat-card>
+  <mat-card-header>
+    <h2>Customer Listing</h2>
+    @if (_permmission.haveadd) {
+      <button style="margin-left: 70%;" mat-raised-button color="primary" routerLink="/customer/add">Add Customer</button>
+    }
+
+  </mat-card-header>
+  <mat-card-content>
+
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="datasource" matSort>
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef>Code</th>
+        <td mat-cell *matCellDef="let element">{{element.code}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{element.email}}</td>
+      </ng-container>
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>Phone</th>
+        <td mat-cell *matCellDef="let element">{{element.phone}}</td>
+      </ng-container>
+      <ng-container matColumnDef="creditlimit">
+        <th mat-header-cell *matHeaderCellDef>Creditlimit</th>
+        <td mat-cell *matCellDef="let element">{{element.creditlimit}}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">{{element.statusname}}</td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <button (click)="functionedit(element.code)" mat-raised-button color="primary">Edit</button>
+          <button (click)="functiondelete(element.code)" mat-raised-button color="accent">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr class="table-header" mat-header-row *matHeaderRowDef="displayColumns"></tr>
+      <tr mat-row *matRowDef="let row;columns:displayColumns"></tr>
+    </table>
+  </mat-card-content>
+  <br>
+    <mat-card-footer>
+        <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+    </mat-card-footer>
+</mat-card>
